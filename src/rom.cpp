@@ -9,10 +9,12 @@
 
 Rom::Rom(const std::string& filename)
         : buffer_(LoadRom(filename)),
-          size_(buffer_.size()) {
+          size_(buffer_.size()),
+          title_(ParseTitle()) {
 
-        // parse header to get title, flags, etc
-        ParseHeader();
+        // we parse as much as we can know from the header in the initializer list
+        std::cout << size_ << std::endl;
+        std::cout << title_ << std::endl;
 }
 
 Rom::~Rom() {
@@ -42,13 +44,10 @@ std::vector<uint8_t> Rom::LoadRom(const std::string& filename) {
         return rom;
 }
 
-void Rom::ParseHeader() {
-        
-        // rom title
-        auto title_ascii = buffer_.begin() + kRomTitleBegin;
-        title_ = std::string(title_ascii, title_ascii + kRomTitleLength);
+std::string Rom::ParseTitle() {
 
-        // TODO parse other parts of the header
+        auto title_ascii = buffer_.begin() + kRomTitleBegin;
+        return std::string(title_ascii, title_ascii + kRomTitleLength);
 }
 
 // for debugging

@@ -9,8 +9,8 @@ public:
         ~Rom();
 
         std::vector<uint8_t> LoadRom(const std::string& filename);
-        void ParseHeader();
-        void ParseTitle();
+        std::string ParseTitle();
+
         void PrintBytes(const uint32_t start, const uint32_t end);
 
         const std::vector<uint8_t> buffer_;
@@ -19,5 +19,5 @@ public:
         /*
          * Info and flags from the rom header
          */
-        std::string title_;
+        const std::string title_;
 };
