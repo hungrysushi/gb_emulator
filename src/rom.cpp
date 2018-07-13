@@ -3,12 +3,13 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <vector>
+#include <iterator>
 
 #include "types.h"
 
 Rom::Rom(const std::string& filename)
-        : buffer_(LoadRom(filename)) {
+        : buffer_(LoadRom(filename)),
+          size_(buffer_.size()) {
 
         // parse header to get title, flags, etc
         ParseHeader();
@@ -16,15 +17,14 @@ Rom::Rom(const std::string& filename)
 
 Rom::~Rom() {
 
-        delete[] buffer_;
 }
 
-uint8_t* Rom::LoadRom(const std::string& filename) {
+std::vector<uint8_t> Rom::LoadRom(const std::string& filename) {
 
         // open file
         std::ifstream rom_file;
         rom_file.unsetf(std::ios::skipws);
-        rom_file.exceptions(std::ios::failbit | std::ios::badbit);  // fail if the file cannot be read
+        rom_file.exceptions(std::ios::badbit);  // fail if the file cannot be read
 
         rom_file.open(filename, std::ios::binary);
 
@@ -33,11 +33,11 @@ uint8_t* Rom::LoadRom(const std::string& filename) {
         std::streampos length = rom_file.tellg();
         rom_file.seekg(0, std::ios::beg);
 
-        size_ = (int32_t) length;
 
         // read whole rom to memory
-        uint8_t *rom = new uint8_t[length];
-        rom_file.read((char*) rom, length);
+        std::vector<uint8_t> rom;
+        rom.reserve(length);
+        rom.insert(rom.begin(), std::istream_iterator<uint8_t>(rom_file), std::istream_iterator<uint8_t>());
 
         return rom;
 }
@@ -45,7 +45,7 @@ uint8_t* Rom::LoadRom(const std::string& filename) {
 void Rom::ParseHeader() {
         
         // rom title
-        const uint8_t* title_ascii = buffer_ + kRomTitleBegin;
+        auto title_ascii = buffer_.begin() + kRomTitleBegin;
         title_ = std::string(title_ascii, title_ascii + kRomTitleLength);
 
         // TODO parse other parts of the header
