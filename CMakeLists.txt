@@ -7,6 +7,7 @@ set(CMAKE_BUILD_TYPE Debug)
 
 add_executable(gb_emulator
         src/main.cpp
+        src/rom.cpp
         )
 
 target_include_directories(gb_emulator PUBLIC
