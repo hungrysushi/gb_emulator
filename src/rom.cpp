@@ -12,7 +12,8 @@ Rom::Rom(const std::string& filename)
           size_(buffer_.size()),
           /* cartidge header fields */
           logo_(ParseLogo()),
-          title_(ParseTitle()) {
+          title_(ParseTitle()),
+          manufacturer_code_(ParseManufacturerCode()) {
 
         // we parse as much as we can know from the header in the initializer list
         std::cout << size_ << std::endl;
@@ -57,6 +58,12 @@ std::string Rom::ParseTitle() {
 
         auto title_ascii = buffer_.begin() + kRomTitleBegin;
         return std::string(title_ascii, title_ascii + kRomTitleLength);
+}
+
+std::string Rom::ParseManufacturerCode() {
+
+        auto manufacturer_ascii = buffer_.begin() + kRomManufacturerBegin;
+        return std::string(manufacturer_ascii, manufacturer_ascii + kRomManufacturerLength);
 }
 
 // for debugging

@@ -14,6 +14,7 @@ public:
         std::vector<uint8_t> LoadRom(const std::string& filename);
         std::vector<uint8_t> ParseLogo();
         std::string ParseTitle();
+        std::string ParseManufacturerCode();
 
         void PrintBytes(const uint32_t start, const uint32_t end);
 
@@ -26,7 +27,7 @@ public:
         // TODO convert flags to enums
         const std::vector<uint8_t> logo_;
         const std::string title_;
-        /* const std::string manufacturer_code_; */
+        const std::string manufacturer_code_;
         /* const uint8_t cgb_flag_; */
         /* const std::string new_licensee_code_; */
         /* const uint8_t sgb_flag; */
