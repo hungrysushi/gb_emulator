@@ -10,11 +10,14 @@
 Rom::Rom(const std::string& filename)
         : buffer_(LoadRom(filename)),
           size_(buffer_.size()),
+          /* cartidge header fields */
+          logo_(ParseLogo()),
           title_(ParseTitle()) {
 
         // we parse as much as we can know from the header in the initializer list
         std::cout << size_ << std::endl;
         std::cout << title_ << std::endl;
+
 }
 
 Rom::~Rom() {
@@ -42,6 +45,12 @@ std::vector<uint8_t> Rom::LoadRom(const std::string& filename) {
         rom.insert(rom.begin(), std::istream_iterator<uint8_t>(rom_file), std::istream_iterator<uint8_t>());
 
         return rom;
+}
+
+std::vector<uint8_t> Rom::ParseLogo() {
+
+        auto logo_location = buffer_.begin() + kRomLogoBegin;
+        return std::vector<uint8_t>(logo_location, logo_location + kRomLogoLength);
 }
 
 std::string Rom::ParseTitle() {
