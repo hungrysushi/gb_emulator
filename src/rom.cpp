@@ -13,8 +13,19 @@ Rom::Rom(const std::string& filename)
           /* cartidge header fields */
           logo_(ParseLogo()),
           title_(ParseTitle()),
-          manufacturer_code_(ParseManufacturerCode()) {
-
+          manufacturer_code_(ParseManufacturerCode()),
+          /* cgb_flag_(ParseCgbFlag()), */
+          new_licensee_code_(ParseNewLicenseeCode())
+          /* sgb_flag_(ParseSgbFlag()), */
+          /* cartridge_type_(ParseCartridgeType()), */
+          /* rom_size_(ParseRomSize()), */
+          /* ram_size_(ParseRamSize()), */
+          /* desination_code_(ParseDestinationCode()), */
+          /* old_licensee_code_(ParseOldLicenseeCode()), */
+          /* mask_rom_version_number_(ParseMaskRomVersionNumber()), */
+          /* header_checksum_(ParseHeaderChecksum()), */
+          /* global_checksum_(ParseGlobalChecksum()) { */
+{
         // we parse as much as we can know from the header in the initializer list
         std::cout << size_ << std::endl;
         std::cout << title_ << std::endl;
@@ -66,6 +77,11 @@ std::string Rom::ParseManufacturerCode() {
         return std::string(manufacturer_ascii, manufacturer_ascii + kRomManufacturerLength);
 }
 
+std::string Rom::ParseNewLicenseeCode() {
+
+        auto licensee_ascii = buffer_.begin() + kRomNewLicenseeBegin;
+        return std::string(licensee_ascii, licensee_ascii + kRomNewLicenseeLength);
+}
 // for debugging
 void Rom::PrintBytes(const uint32_t start, const uint32_t end) {
         for (uint32_t i = start; i < end; i++) {

@@ -15,6 +15,7 @@ public:
         std::vector<uint8_t> ParseLogo();
         std::string ParseTitle();
         std::string ParseManufacturerCode();
+        std::string ParseNewLicenseeCode();
 
         void PrintBytes(const uint32_t start, const uint32_t end);
 
@@ -29,7 +30,7 @@ public:
         const std::string title_;
         const std::string manufacturer_code_;
         /* const uint8_t cgb_flag_; */
-        /* const std::string new_licensee_code_; */
+        const std::string new_licensee_code_;
         /* const uint8_t sgb_flag; */
         /* const uint8_t cartridge_type_; */
         /* const uint8_t rom_size_; */
