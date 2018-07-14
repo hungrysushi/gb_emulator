@@ -16,7 +16,10 @@ int main(int argc, char** argv)
         Rom rom(filename);
 
         // header bytes
-        rom.PrintBytes(0x100, 0x14F);
+        /* rom.PrintBytes(0x100, 0x14F); */
         
+        // first few instructions
+        rom.PrintBytes(0x150, 0x200);
+
         return 0;
 }
