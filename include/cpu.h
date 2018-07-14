@@ -15,12 +15,3 @@ public:
         Registers registers_;
 };
 
-typedef void (*OpcodeFunction)(uint8_t* operands, CPU& cpu);
-
-/**
- * static functions for CPU opcodes
- * must match OpcodeFunction signature
- */
-static void Nop(uint8_t* operands, CPU& cpu);
-
-

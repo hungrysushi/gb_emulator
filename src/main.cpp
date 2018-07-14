@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 
+#include "cpu.h"
 #include "rom.h"
 
 int main(int argc, char** argv)
