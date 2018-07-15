@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <vector>
 
 #include "registers.h"
 
@@ -9,8 +9,14 @@ public:
         CPU();
         ~CPU() { }
 
-        void Run();
         void Bootstrap();
+        void Run(const std::vector<uint8_t>& rom_data, const uint32_t size);
+        bool HandleOpcode(const uint8_t opcode);
+
+        /**
+         * these are the functions to run the opcodes
+         */
+        //TODO
 
         Registers registers_;
 };

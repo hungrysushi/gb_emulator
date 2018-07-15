@@ -85,7 +85,11 @@ std::string Rom::ParseNewLicenseeCode() {
 // for debugging
 void Rom::PrintBytes(const uint32_t start, const uint32_t end) {
         for (uint32_t i = start; i < end; i++) {
-                std::cout << std::hex << (uint32_t) buffer_[i] << " ";
+                std::cout << std::setfill('0')
+                          << std::setw(2)
+                          << std::hex
+                          << (uint32_t) buffer_[i]
+                          << " ";
         }
 
         std::cout << std::endl;
