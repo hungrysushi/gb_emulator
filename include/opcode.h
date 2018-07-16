@@ -4,16 +4,23 @@
 
 enum class Opcode {
         NOP,
+        STOP,
+
+        UNIMPLEMENTED,
 };
 
 struct OpcodeInfo {
-        Opcode opcode_;
-        uint8_t num_operands;
+        uint8_t opcode_byte = 0x00;
+        Opcode opcode_ = Opcode::UNIMPLEMENTED;
+        uint8_t num_operands = 0;
 };
 
-static const std::map<uint8_t, OpcodeInfo> kOpcodeMap = {
 
-        {0x00, {Opcode::NOP, 0}},
+static constexpr OpcodeInfo kOpcodes[] = {
+
+        {0x00, Opcode::NOP, 0},
+        {0x10, Opcode::STOP, 0},
 
 };
 
+static constexpr int kOpcodesSize = sizeof(kOpcodes) / sizeof(OpcodeInfo);

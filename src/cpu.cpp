@@ -30,9 +30,16 @@ void CPU::Run(const std::vector<uint8_t>& rom_data, const uint32_t size) {
         }
 }
 
-bool CPU::HandleOpcode(const uint8_t opcode) {
+bool CPU::HandleOpcode(const uint8_t opcode_byte) {
 
-        switch (opcode) {
+        int opcode_index = GetOpcodeIndex(opcode_byte);
+
+        OpcodeInfo opcode;
+        if (opcode_index != -1) {
+                opcode = kOpcodes[opcode_index];
+        }
+
+        switch (opcode_byte) {
                 default:
                         std::cout << "Unimplemented instruction: "
                                   << std::setfill('0')
