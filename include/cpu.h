@@ -3,23 +3,12 @@
 #include <algorithm>
 #include <vector>
 
+#include "i_cpu.h"
 #include "opcode.h"
 #include "registers.h"
 
-/**
- * find the opcode info index for debugging
- */
-static constexpr int GetOpcodeIndex(uint8_t opcode_byte) {
-        for (uint32_t i = 0; i < kOpcodesSize; i++) {
-                if (kOpcodes[i].opcode_byte == opcode_byte) {
-                        return i;
-                }
-        }
 
-        return -1;
-}
-
-class CPU {
+class CPU : ICPU {
 public:
         CPU();
         ~CPU() { }
@@ -32,6 +21,7 @@ public:
          * these are the functions to run the opcodes
          */
         //TODO
+        void nop(uint8_t* operands) override;
 
         Registers registers_;
 };

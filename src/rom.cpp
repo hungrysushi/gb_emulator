@@ -82,6 +82,20 @@ std::string Rom::ParseNewLicenseeCode() {
         auto licensee_ascii = buffer_.begin() + kRomNewLicenseeBegin;
         return std::string(licensee_ascii, licensee_ascii + kRomNewLicenseeLength);
 }
+
+std::vector<Instruction> Rom::BuildInstructionList() {
+        std::vector<Instruction> instruction_list;
+
+        uint32_t rom_iter = 0;
+
+        while (rom_iter < size_) {
+
+                // TODO
+        }
+
+        return instruction_list;
+}
+
 // for debugging
 void Rom::PrintBytes(const uint32_t start, const uint32_t end) {
         for (uint32_t i = start; i < end; i++) {

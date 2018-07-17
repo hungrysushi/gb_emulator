@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "instruction.h"
+
 class Rom {
 public:
         Rom(const std::string& filename);
@@ -16,6 +18,8 @@ public:
         std::string ParseTitle();
         std::string ParseManufacturerCode();
         std::string ParseNewLicenseeCode();
+
+        std::vector<Instruction> BuildInstructionList();
 
         void PrintBytes(const uint32_t start, const uint32_t end);
 

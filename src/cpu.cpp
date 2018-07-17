@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iomanip>
 
+#include "instruction.h"
+
 CPU::CPU() {
 
         Bootstrap();
@@ -34,21 +36,32 @@ bool CPU::HandleOpcode(const uint8_t opcode_byte) {
 
         int opcode_index = GetOpcodeIndex(opcode_byte);
 
-        OpcodeInfo opcode;
         if (opcode_index != -1) {
-                opcode = kOpcodes[opcode_index];
-        }
+                OpcodeInfo opcode = kOpcodes[opcode_index];
 
-        switch (opcode_byte) {
-                default:
-                        std::cout << "Unimplemented instruction: "
-                                  << std::setfill('0')
-                                  << std::setw(2)
-                                  << std::hex
-                                  << (uint32_t) opcode << std::endl;
-                        return false;
-                        break;
+                // TODO execute opcode function
+                // opcode function will handle updating PC and registers
+                
+                opcode.function_(nullptr, this);
+                
+                return false;
+        } else {
+
+                std::cout << "Unimplemented instruction: "
+                        << std::setfill('0')
+                        << std::setw(2)
+                        << std::hex
+                        << (uint32_t) opcode_byte << std::endl;
+
+                return false;
         }
 
         return true;
+}
+
+void CPU::nop(uint8_t* operands) {
+        // nop does nothing
+        std::cout << "NOP" << std::endl;
+
+        registers_.ProgramCounter() ++;
 }
