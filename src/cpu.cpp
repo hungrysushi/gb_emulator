@@ -35,23 +35,23 @@ void CPU::Run(const std::vector<uint8_t>& rom_data, const uint32_t size) {
 bool CPU::HandleOpcode(const uint8_t opcode_byte) {
 
         int opcode_index = GetOpcodeIndex(opcode_byte);
+        OpcodeInfo opcode = kOpcodes[opcode_index];
 
-        if (opcode_index != -1) {
-                OpcodeInfo opcode = kOpcodes[opcode_index];
+        if (opcode.opcode_ != Opcode::UNIMPL) {
 
                 // TODO execute opcode function
                 // opcode function will handle updating PC and registers
                 
                 opcode.function_(nullptr, this);
                 
-                return false;
+                return true;
         } else {
 
                 std::cout << "Unimplemented instruction: "
                         << std::setfill('0')
                         << std::setw(2)
                         << std::hex
-                        << (uint32_t) opcode_byte << std::endl;
+                        << (uint32_t) opcode.opcode_byte_ << std::endl;
 
                 return false;
         }
