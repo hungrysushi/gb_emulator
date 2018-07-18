@@ -8,4 +8,5 @@ public:
         virtual ~ICPU() {}
 
         virtual void nop(uint8_t* operands) = 0;
+        virtual void jp_nn(uint8_t* operands) = 0;
 };

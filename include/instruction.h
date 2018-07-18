@@ -11,3 +11,7 @@ typedef void (*OpFunction)(uint8_t* operands, ICPU* cpu);
 static void nop(uint8_t* operands, ICPU* cpu) {
         cpu->nop(operands);
 }
+
+static void jp_nn(uint8_t* operands, ICPU* cpu) {
+        cpu->jp_nn(operands);
+}
