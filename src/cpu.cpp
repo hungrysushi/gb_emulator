@@ -71,6 +71,7 @@ void CPU::nop(uint8_t* operands) {
         registers_.ProgramCounter() ++;
 }
 
+// 0xc3 nn nn
 void CPU::jp_nn(uint8_t* operands) {
         std::cout << "JP_NN" << std::endl;
 
@@ -78,4 +79,35 @@ void CPU::jp_nn(uint8_t* operands) {
         uint16_t new_pc = (uint16_t) operands[0] | (operands[1] << 8);
 
         registers_.ProgramCounter() = new_pc;
+}
+
+// 0xfe nn
+void CPU::cp_n(uint8_t* operands) {
+        std::cout << "CP_N" << std::endl;
+
+        uint16_t compare_val = (uint16_t) registers_.A() - operands[0];
+
+        if (compare_val == 0) {
+                registers_.SetZeroFlag();
+        } else {
+                registers_.ClearZeroFlag();
+        }
+
+        registers_.SetAddSubFlag();
+
+        // half carry flag
+        // if lower nibble of A is less than lower nibble of operand, then a carry must have occurred
+        if ((registers_.A() & 0x0f ) < (operands[0] & 0x0f)) {
+                registers_.SetHalfCarryFlag();
+        } else {
+                registers_.ClearHalfCarryFlag();
+        }
+
+        if (registers_.A() < operands[0]) {
+                registers_.SetCarryFlag();
+        } else {
+                registers_.ClearCarryFlag();
+        }
+
+        registers_.ProgramCounter() += 2;
 }

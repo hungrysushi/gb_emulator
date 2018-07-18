@@ -13,7 +13,10 @@ enum class Opcode {
         LD_SP_NN,
         STOP,
 
-        JP_NN,
+        JP_NN,          // 0xc3
+
+        CP_N,           // 0xfe
+
         UNIMPL,
 };
 
@@ -317,7 +320,7 @@ static constexpr OpcodeInfo kOpcodes[] = {
         {    0xFB,     Opcode::UNIMPL,     0,        &nop      },
         {    0xFC,     Opcode::UNIMPL,     0,        &nop      },
         {    0xFD,     Opcode::UNIMPL,     0,        &nop      },
-        {    0xFE,     Opcode::UNIMPL,     0,        &nop      },
+        {    0xFE,     Opcode::CP_N,       1,        &cp_n     },
         {    0xFF,     Opcode::UNIMPL,     0,        &nop      },
 };
 

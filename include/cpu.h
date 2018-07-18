@@ -23,6 +23,7 @@ public:
         //TODO
         void nop(uint8_t* operands) override;
         void jp_nn(uint8_t* operands) override;
+        void cp_n(uint8_t* operands) override;
 
         Registers registers_;
 };

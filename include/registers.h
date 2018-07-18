@@ -2,6 +2,11 @@
 
 #include <cstdint>
 
+constexpr int kZeroFlagBit = 7;
+constexpr int kAddSubFlagBit = 6;
+constexpr int kHalfCarryFlagBit = 5;
+constexpr int kCarryFlagBit = 4;
+
 class Registers {
 public:
         Registers() { }
@@ -23,6 +28,16 @@ public:
         uint8_t& E() { return de_[1]; }
         uint8_t& H() { return hl_[0]; }
         uint8_t& L() { return hl_[1]; }
+
+        // set/clear flags individually
+        void SetZeroFlag() { af_[1] |= (0x1 << kZeroFlagBit); }
+        void ClearZeroFlag() { af_[1] &= ~(0x1 << kZeroFlagBit); }
+        void SetAddSubFlag() { af_[1] |= (0x1 << kAddSubFlagBit); }
+        void ClearAddSubFlag() { af_[1] &= ~(0x1 << kAddSubFlagBit); }
+        void SetHalfCarryFlag() { af_[1] |= (0x1 << kHalfCarryFlagBit); }
+        void ClearHalfCarryFlag() { af_[1] &= ~(0x1 << kHalfCarryFlagBit); }
+        void SetCarryFlag() { af_[1] |= (0x1 << kCarryFlagBit); }
+        void ClearCarryFlag() { af_[1] &= ~(0x1 << kCarryFlagBit); }
 
 private:
         uint8_t af_[2] = { 0x00 };
